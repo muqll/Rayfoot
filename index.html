@@ -3,415 +3,571 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rayfoot — الرئيسية</title>
+    <title>التقييم الشامل لموسم الغانرز وكأس العالم 🔴 White</title>
     <style>
-        /* =========================
-           BODY & BACKGROUNDS
-        ========================= */
         body {
-            margin: 0;
-            font-family: Tahoma, Arial, sans-serif;
-            color: white;
-            direction: rtl;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            background-color: #0a0a0a;
+            margin: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; color: #f5f5f7; direction: rtl; min-height: 100vh; background-color: #0a0a0e; position: relative; line-height: 1.8;
         }
-
-        /* خلفية ثابتة للشاشات الكبيرة */
+        /* خلفية مخصصة للموقع */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("desktop-bg.jpg"); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -3; 
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("arsenal-bg.jpg"); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: -2;
         }
-
-        /* طبقة تعتيم خفيف لتسهيل القراءة */
+        /* طبقة حماية داكنة فوق الخلفية لجعل الكلمات واضحة جداً للقراءة */
         body::after {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.55); 
-            z-index: -2;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(10, 10, 14, 0.94) 0%, rgba(15, 6, 6, 0.97) 100%); z-index: -1;
         }
-
-        /* حل مشكلة الشاشة الرمادية على الآيفون والموبايل */
-        @media (max-width: 768px) {
-            body::before {
-                background-image: url("mobile-bg.jpg");
-                background-size: cover;
-                background-position: center;
-                background-attachment: scroll !important;
-                position: fixed;
-                top: 0; left: 0; width: 100vw; height: 100vh;
-            }
-        }
-
-        /* زخرفة متحركة خلفية */
-        .bg-animation {
-            position: fixed;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(255, 255, 255, 0.02) 0px,
-                rgba(255, 255, 255, 0.02) 2px,
-                transparent 2px,
-                transparent 40px
-            );
-            animation: rotateBg 35s linear infinite;
-            z-index: -1;
-            pointer-events: none; 
-        }
-
-        @keyframes rotateBg {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* =========================
-           HEADER & NAV MENU
-        ========================= */
         header {
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-            position: relative;
+            background: rgba(20, 20, 25, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 30px 20px; font-size: 24px; font-weight: bold; text-align: center; border-bottom: 3px solid #dba11c; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
-
-        /* الـ 3 شرطات لفتح القائمة */
-        .menu-btn {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 26px;
-            cursor: pointer;
-            z-index: 100;
-            user-select: none;
-            transition: color 0.3s;
-        }
-        .menu-btn:hover {
-            color: #d4af37;
-        }
-
-        /* القائمة الجانبية المنسدلة */
-        .side-menu {
-            position: fixed;
-            top: 0; right: -280px; width: 240px; height: 100%;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-            z-index: 99;
-            padding: 80px 20px 20px 20px;
-            transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
-            border-left: 1px solid rgba(255,255,255,0.05);
-        }
-        .side-menu.open {
-            right: 0;
-        }
-        .side-menu a {
-            display: block;
-            color: #ccc;
-            text-decoration: none;
-            padding: 14px 10px;
-            font-size: 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .side-menu a:hover {
-            color: white;
-            background: rgba(255,255,255,0.05);
-            padding-right: 18px;
-        }
-
-        /* طبقة التعتيم عند فتح القائمة */
-        .menu-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 98;
-            display: none;
-        }
-        .menu-overlay.show {
-            display: block;
-        }
-
-        /* =========================
-           MAIN CONTAINER & CARDS
-        ========================= */
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 25px 15px;
-        }
-
-        .welcome-card {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .welcome-card h1 { margin: 0 0 10px 0; font-size: 26px; color: #fff; }
-        .welcome-card p { margin: 0; font-size: 15px; color: #ccc; line-height: 1.6; }
-
-        .main-section-card {
-            margin-bottom: 25px;
-        }
-        .section-link {
-            text-decoration: none; 
-            color: white;
-            display: block;
-        }
-        .inner-banner {
-            position: relative; 
-            height: 180px; 
-            border-radius: 16px; 
-            background-size: cover; 
-            background-position: center; 
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
-        }
-        .inner-banner:hover {
-            transform: scale(1.01);
-        }
+        .container { max-width: 800px; margin: auto; padding: 30px 15px; }
         
-        /* تأثير مميز للأقسام القادمة عند النقر */
-        .disabled-banner {
-            cursor: pointer;
+        /* مقدمة الكاتب */
+        .intro-box {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 25px; margin-bottom: 35px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
+        .intro-box h2 { color: #ef0107; margin-top: 0; font-size: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .intro-box ul { padding-right: 20px; margin: 10px 0; color: #dba11c; font-weight: bold; }
+        .intro-box ul li { color: #e2e2e5; font-weight: normal; margin-bottom: 5px; }
 
-        .banner-overlay {
-            position: absolute; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+        /* قسم كأس العالم المميز في الأعلى */
+        .world-cup-section {
+            background: linear-gradient(135deg, rgba(219, 161, 28, 0.15), rgba(10, 10, 14, 0.8)); border: 2px solid #dba11c; border-radius: 16px; padding: 25px; margin-bottom: 35px; box-shadow: 0 0 25px rgba(219, 161, 28, 0.2); position: relative;
         }
-        .banner-content {
-            position: absolute; 
-            bottom: 20px; 
-            right: 20px; 
-            text-align: right;
-        }
-        .badge {
-            color: black; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; margin-bottom: 8px;
-        }
-        .banner-content h2 { margin: 0; font-size: 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
-        .banner-content p { margin: 5px 0 0 0; font-size: 14px; color: #ddd; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .world-cup-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(21dba, 161, 28, 0.3); padding-bottom: 12px; margin-bottom: 15px; }
+        .world-cup-title { font-size: 22px; font-weight: bold; color: #dba11c; display: flex; align-items: center; gap: 10px; }
+        .world-cup-opinion { color: #f5f5f7; font-size: 16px; text-align: justify; }
 
-        /* =========================
-           SLIDE DOWN PANEL (قريباً)
-        ========================= */
-        .soon-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border-radius: 0 0 14px 14px;
-            margin-top: -10px;
-            border: 1px solid transparent;
-            border-top: none;
+        /* بطاقات اللاعبين */
+        .player-card {
+            background: rgba(20, 20, 25, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 16px; padding: 25px; margin-bottom: 25px; transition: transform 0.3s, border-color 0.3s; position: relative; overflow: hidden;
         }
-        .soon-panel.show {
-            max-height: 80px; /* الارتفاع عند الفتح */
-            margin-top: -5px;
-            margin-bottom: 15px;
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        .soon-text {
-            padding: 15px 20px;
-            font-size: 15px;
-            color: #d4af37;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .player-card:hover { transform: translateY(-3px); }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; margin-bottom: 15px; }
+        .player-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        
+        /* شارات المراكز */
+        .rank-badge { padding: 4px 14px; border-radius: 30px; font-size: 13px; font-weight: bold; letter-spacing: 0.5px; }
+        .rank-worst { background: rgba(239, 1, 7, 0.2); color: #ff4d4d; border: 1px solid #ef0107; }
+        .rank-mid { background: rgba(219, 161, 28, 0.15); color: #dba11c; border: 1px solid #dba11c; }
+        .rank-best { background: rgba(46, 213, 115, 0.15); color: #2ed573; border: 1px solid #2ed573; }
+        .rank-top3 { background: linear-gradient(45deg, #dba11c, #fff); color: #111; font-weight: 900; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
 
-        footer {
-            text-align: center; padding: 30px 10px; font-size: 13px; color: #777; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px;
+        .player-opinion { color: #d1d1d6; font-size: 15px; text-align: justify; white-space: pre-line; margin-bottom: 20px; }
+        
+        /* قسم أزرار التفاعل الجديد */
+        .reaction-container {
+            display: flex; gap: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 15px; margin-top: 10px;
         }
+        .react-btn {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); color: #e2e2e5; padding: 6px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; user-select: none;
+        }
+        .react-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+        .react-btn.agree-active { background: rgba(46, 213, 115, 0.2); color: #2ed573; border-color: #2ed573; }
+        .react-btn.disagree-active { background: rgba(239, 1, 7, 0.2); color: #ff4d4d; border-color: #ef0107; }
+        .counter { font-weight: bold; }
+
+        /* فاصل شاسع للخمسة الأوائل */
+        .elite-divider { text-align: center; margin: 50px 0 40px 0; position: relative; }
+        .elite-divider::before { content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #dba11c, transparent); z-index: 1; }
+        .elite-text { position: relative; z-index: 2; background: #0c0c12; padding: 8px 25px; border-radius: 30px; border: 1px solid #dba11c; color: #dba11c; font-weight: bold; font-size: 14px; box-shadow: 0 0 15px rgba(219,161,28,0.2); }
+
+        .footer-nav { text-align: center; margin-top: 50px; }
+        .btn-back { color: white; text-decoration: none; background: rgba(239, 1, 7, 0.2); padding: 14px 30px; border-radius: 12px; border: 1px solid #ef0107; font-weight: bold; transition: 0.2s; display: inline-block; }
+        .btn-back:hover { background: #ef0107; box-shadow: 0 5px 20px rgba(239,1,7,0.4); }
     </style>
 </head>
 <body>
 
-    <!-- طبقة الزخرفة الخلفية المتحركة -->
-    <div class="bg-animation"></div>
-
-    <!-- طبقة التعتيم للقائمة المنسدلة -->
-    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-
-    <header>
-        <!-- الـ 3 شرطات -->
-        <div class="menu-btn" onclick="toggleMenu()">☰</div>
-        ⚽ منصة RAYFOOT الرياضية
-    </header>
-
-    <!-- القائمة الجانبية المنسدلة -->
-    <div class="side-menu" id="sideMenu">
-        <a href="index.html">🏠 الصفحة الرئيسية</a>
-        <a href="arsenal.html">🔴 أرسنال مع أبو سو</a>
-        <a href="worldcup.html">🏆 كأس العالم 2026</a>
-        <a onclick="toggleMenu(); toggleSection('ucl-soon')">⭐ دوري الأبطال</a>
-        <a onclick="toggleMenu(); toggleSection('news-soon')">📰 آخر الأخبار</a>
-        <a onclick="toggleMenu(); toggleSection('opinions-soon')">💬 آراء كروية</a>
-        <a onclick="toggleMenu(); toggleSection('results-soon')">📊 قسم النتائج</a>
-    </div>
+    <header>📊 التقييم الشامل لموسم أرسنال ونظرة على كأس العالم</header>
 
     <div class="container">
-
-        <!-- بطاقة الترحيب العلوية -->
-        <div class="welcome-card">
-            <h1>أهلاً بكم في Rayfoot</h1>
-            <p>منصتك الحصرية لمتابعة أقوى التحليلات، التقييمات، وتغطية البطولات العالمية الكبرى برؤية أبو سو.</p>
+        
+        <!-- مقدمة المعايير -->
+        <div class="intro-box">
+            <h2>ملاحظة قبل البدء في الترتيب:</h2>
+            <p>أخيراً انتهى موسم ارسنال الطويل جدا و فهذه المناسبه قررت اسوي تقيم شامل كامل ملخص عن كل لاعب في فريق ارسنال هذا الموسم (باستثناء المعارين و الاعبين اللي دقائق لعبهم ما تجاوزت ال 500 دقيقه).</p>
+            <p>التقيم راح يكون حسب ثلاثه معايير:</p>
+            <ul>
+                <li>الامال و المطالب اللي علقها الجمهور على كل لاعب.</li>
+                <li>مستواه طول الموسم.</li>
+                <li>عدد دقائق اللعب.</li>
+            </ul>
+            <p>المعايير ذي اتمنى الكل يركز عليها لانها ممكن تسبب جدل، كوني حطيت لاعب بمركز متدني شوي وهو يستحق اعلى، لكن وفق المعايير اللي انا حطيتها ارى من وجهة نظري ان كل لاعب استحق مركزه. راح أبدأ تقييمي هذا من الأسوأ إلى الأفضل.</p>
+            <p>وحاب أوضح نقطة مهمة: هذا الموسم ما كان فيه لاعب سيء في الفريق، بالعكس، أغلب اللاعبين قدموا مستويات ممتازة وما قصروا، باستثناء كم لاعب… وبيجي دورهم الآن. وبرضوا أحب أوضح أن هذا التقييم حسب وجهة نظري فقط، وكل شخص له رأيه الخاص.</p>
         </div>
 
-        <!-- 1️⃣ قسم أرسنال مع أبو سو -->
-        <div class="main-section-card">
-            <a href="arsenal.html" class="section-link">
-                <div class="inner-banner" style="background-image: url('arsenal1.jpg'); border: 1px solid rgba(220, 38, 38, 0.3);">
-                    <div class="banner-overlay"></div>
-                    <div class="banner-content">
-                        <span class="badge" style="background: #dc2626; color: white;">نادي المدفعجية 🔴</span>
-                        <h2>أرسنال مع أبو سو</h2>
-                        <p>ملخص شامل، تحليل تكتيكي، وتقييم كامل ومفصل لأداء لاعبي أرسنال هذا الموسم</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- 2️⃣ قسم كأس العالم 2026 -->
-        <div class="main-section-card">
-            <a href="worldcup.html" class="section-link">
-                <div class="inner-banner" style="background-image: url('arsenal5.jpg'); border: 1px solid rgba(212, 175, 55, 0.3);">
-                    <div class="banner-overlay"></div>
-                    <div class="banner-content">
-                        <span class="badge" style="background: #d4af37; color: black;">تغطية حصرية 🏆</span>
-                        <h2>كأس العالم 2026 مع أبو سو</h2>
-                        <p>تابع المجموعات الـ 12، جداول ومواعيد المباريات، الهدافين، وآخر كواليس المونديال أولاً بأول</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- 3️⃣ قسم دوري الأبطال -->
-        <div class="main-section-card" onclick="toggleSection('ucl-soon')">
-            <div class="inner-banner disabled-banner" style="background-image: url('arsenal6.jpg'); border: 1px solid rgba(29, 78, 216, 0.2);">
-                <div class="banner-overlay"></div>
-                <div class="banner-content">
-                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل ⭐</span>
-                    <h2>دوري الأبطال</h2>
-                    <p>ليالي الأبطال الكبرى وتحليل قمم الأدوار الإقصائية سنبدأ تغطيتها هنا</p>
-                </div>
+        <!-- قسم كأس العالم (موضعه الجديد في الأعلى فوق تقييم الأرسنال) -->
+        <div class="world-cup-section">
+            <div class="world-cup-header">
+                <div class="world-cup-title">🏆 نظرة وتوقعات كأس العالم 2026</div>
+            </div>
+            <div class="world-cup-opinion">
+                نتمنى ونأمل أن يقدم نجوم أرسنال أداءً تاريخياً واستثنائياً في بطولة كأس العالم القادمة لرفع اسم النادي عالياً. 
+                وبشكل خاص، ننتظر من النجم ديكلان رايس (أبو جود) أن ينفجر ويقدم أداءً خرافياً يقود به منتخب بلاده إلى منصات التتويج، لكي يتوج مجهوده الاستثنائي هذا الموسم ويحقق الجائزة الأغلى على المستوى الفردي وهي <b>الكرة الذهبية (البالون دور)</b>.
+            </div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
             </div>
         </div>
-        <!-- لوحة "قريباً" المنسدلة تحت قسم دوري الأبطال -->
-        <div class="soon-panel" id="ucl-soon">
-            <div class="soon-text">⏳ انتظرونا.. التغطية الخاصة ببطولة دوري الأبطال ستنطلق قريباً جداً في المنصة!</div>
-        </div>
 
-        <!-- 4️⃣ قسم آخر الأخبار -->
-        <div class="main-section-card" onclick="toggleSection('news-soon')">
-            <div class="inner-banner disabled-banner" style="background-image: url('arsenal2.jpg'); border: 1px solid rgba(255, 255, 255, 0.15);">
-                <div class="banner-overlay"></div>
-                <div class="banner-content">
-                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل 📰</span>
-                    <h2>آخر الأخبار</h2>
-                    <p>متابعة وتغطية حصرية مدار الساعة لآخر كواليس وسوق الانتقالات في الملاعب العالمية</p>
-                </div>
+        <!-- قائمة اللاعبين من 24 إلى 1 -->
+        
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">بوكايو ساكا 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-worst">المركز 24</span>
+            </div>
+            <div class="player-opinion">هذا الاعب بناء على دقائق لعبه و مستوياته فيها و الامال اللي علقناها عليه فهو خذلنا خذلنا خذلنا و خذلنا في اهم مباريات موسمنا وقد يكون تاريخنا اللي هي نهائي الابطال و غيرها من مباريات كثيره كنا معلقين عليه امال كبيره بس خذلنا
+ذا غير انه نص الموسم مصاب و النص الثاني معفن حرفياً، ما اذكر لك مباره بدع فيها الا فولهام ذهاب و اياب و ليدز، غير كذا ما اتنوع
+انا ما حطيته بذا المركز الا لانه اعلى جوده بالفريق و اكثر لاعب حاط عليه امال بداية الموسم، و الاخ حقق اسوء مستوى ولا حتى كان يحاول
+كل لاعبين الفريق كلهم كلهم بلا استثناء تعبوا و حاولوا ذا الموسم، ما عدا ساكا
+اهخخخ بس، اتمنى يرجع الموسم الجاي.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
             </div>
         </div>
-        <!-- لوحة "قريباً" المنسدلة تحت قسم آخر الأخبار -->
-        <div class="soon-panel" id="news-soon">
-            <div class="soon-text">⏳ قريباً جداً.. ترقبوا شريط الأخبار الحصري وكواليس الميركاتو أولاً بأول!</div>
-        </div>
 
-        <!-- 5️⃣ قسم آراء كروية -->
-        <div class="main-section-card" onclick="toggleSection('opinions-soon')">
-            <div class="inner-banner disabled-banner" style="background-image: url('arsenal3.jpg'); border: 1px solid rgba(139, 92, 246, 0.2);">
-                <div class="banner-overlay"></div>
-                <div class="banner-content">
-                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل 💬</span>
-                    <h2>آراء كروية</h2>
-                    <p>نقاشات تكتيكية صريحة، قضايا ساخنة، ومساحة لمشاركة آرائكم حول كل ما يخص كرة القدم</p>
-                </div>
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كيبا 🇪🇸</div>
+                <span class="rank-badge rank-worst">المركز 23</span>
+            </div>
+            <div class="player-opinion">هذا حارس دكه ممتاز كونه دكه فقط.
+ما قصر في اغلب موسمه الين ما جاء نهائي ويمبلي ضد السيتي و خسرنا بطوله كامله و دمر كل شيء سواه اللاعب.
+بكل صراحه اغلب مبارياته معنا ما قصر فيها، وكان يلعب بروح و شغف كبير جداً وكانه له عشرين سنه يلعب
+اشكره على اللي قدمه معنا .</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
             </div>
         </div>
-        <!-- لوحة "قريباً" المنسدلة تحت قسم آراء كروية -->
-        <div class="soon-panel" id="opinions-soon">
-            <div class="soon-text">⏳ قريباً.. سنفتح مساحة للنقاشات والآراء التكتيكية ومشاركة تعليقاتكم في المنصة!</div>
-        </div>
 
-        <!-- 6️⃣ قسم النتائج -->
-        <div class="main-section-card" onclick="toggleSection('results-soon')">
-            <div class="inner-banner disabled-banner" style="background-image: url('arsenal4.jpg'); border: 1px solid rgba(16, 185, 129, 0.2);">
-                <div class="banner-overlay"></div>
-                <div class="banner-content">
-                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل 📊</span>
-                    <h2>قسم النتائج</h2>
-                    <p>مركز متكامل لمتابعة نتائج المباريات المباشرة وجداول ترتيب الدوريات الكبرى</p>
-                </div>
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">مارتين أوديغارد 🇳🇴</div>
+                <span class="rank-badge rank-worst">المركز 22</span>
+            </div>
+            <div class="player-opinion">القائد, الكابتن، الاعب اللي لطالما كنت احبه و اعشقه و اطبل له، بس الان غير
+هذا الاعب نفس وضع خوينا ساكا
+ثلاث ارباع الموسم بالمستشفى و ربع مستوى مخجل
+و اداء رعوني قدم مباريات جميله قليله جداً و ساعدنا فيها على تحقيق الدوري، بس تخاذل في نهائي الابطال و في مباريات حاسمه
+بكل صدق الاعب اذا ما كان مصاب ولعب، بعض المرات فقط، كان يقدم اداء تاريخي و يشكر عليه.
+بس وش الفايده دام ثلاث ارباع الموسم مصاب؟
+الاعب هذا من الموسم الماضي و انا اقول نفس الكلام عنه، ما ادري الى متى يا اوديغارد</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
             </div>
         </div>
-        <!-- لوحة "قريباً" المنسدلة تحت قسم النتائج -->
-        <div class="soon-panel" id="results-soon">
-            <div class="soon-text">⏳ نظام النتائج وجداول الترتيب المباشرة قيد التطوير البرمجي الآن وسيعمل قريباً!</div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كريستيان نورغارد 🇩🇰</div>
+                <span class="rank-badge rank-mid">المركز 21</span>
+            </div>
+            <div class="player-opinion">لاعب تاريخي و خرافي بس دقائق لعبه قليله
+ولا قصر فيها كلها، و اشكره جداً على الموسم الجميل ذا
+بس فيه لاعبين احق منه بمراكز اعلى بسبب دقائق اللعب.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">غابرييل جيسوس 🇧🇷</div>
+                <span class="rank-badge rank-mid">المركز 20</span>
+            </div>
+            <div class="player-opinion">لاعب ممتاز
+لعب عدد دقائق تناسب كونه لاعب جاي من رباط صليبي ولا قصر فيها
+انقذنا ضد الولفز و قدم اداء تاريخي امام انتر و ساهم بشكل كبير بتواجد ارسنال بالربع النهائي بالـ FA Cup و نهائي الكاراباو.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">ماكس دومان 🇩🇪</div>
+                <span class="rank-badge rank-mid">المركز 19</span>
+            </div>
+            <div class="player-opinion">لاعب جوهره
+ممتاز ممتاز ممتاز
+في كل مباره لعبها ذا الموسم قدم اداء خيالي و انقذنا ضد ايفرتون و ساهم ايضاً بالكؤوس
+ولا ننسى ايضاً ان عمره 16 فقط و كسر كثير ارقام قياسيه في كرة القدم تتعلق بالعمر
+مستقبل عظيم لذا الاعب.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">نوني مادويكي 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 18</span>
+            </div>
+            <div class="player-opinion">والله الصدق اني اختلف مع كل من ينتقده
+لاعب دكه كان ممتاز، ينزل في مباريات و يكون احسن من ساكا و ينقذنا، ابرزها ضد سبورتنغ و غيرها من المباريات
+ساهم بـ 11 هدف، حصيله جيده الصراحه من لاعب دكه
+ذا غير انه كان يقدم اداء ممتاز، بس مع الاسف رعونه المهاجمين ما حولت الفرص ذي لاهداف.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">بن وايت 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 17</span>
+            </div>
+            <div class="player-opinion">لاعب شبه منتهي بسبب الاصابات
+قدم موسم جيد و كان بديل جيد
+نذكر له لحظات ممتازه في ذا الموسم
+صحيح خذلنا شوي ضد السيتي سواء بالكاس او بالدوري، بس عوافي فداه
+لانه قدم اداء تاريخي ضد اتلتيكو و في مباريات اخرى بالكؤوس
+وكان لاعب ممتاز
+غالباً اخر موسم له، و اشكره جزيل الشكر على كل ما قدمه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كريستيان موسكيرا 🇨🇴</div>
+                <span class="rank-badge rank-mid">المركز 16</span>
+            </div>
+            <div class="player-opinion">يا اخوان والله انه لاعب ممتاز جداً ولا قصر في اي مباره لعبها ذا الموسم
+كلها، اي مباره شارك فيها ما قصر بتاتاً
+وخصوصاً في النهائي قدم مستوى ممتاز جداً والله
+بس لعله اخطا بسبب قلة الخبره و رعونه الجناح ساكا بالتغطيه و تسبب بركلة جزاء في النهائي
+غير كذا الاعب امامه مستقبل مبهر و كبير
+لا زال عمره 21 فقط.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">ميكيل ميرينو 🇪🇸</div>
+                <span class="rank-badge rank-mid">المركز 15</span>
+            </div>
+            <div class="player-opinion">لا كلام عن هذا الاعب
+قد يكون من اهم الاعبين في منظومه ارسنال سواء بالدكه او بالشخصيه او بعض المرات في الملعب
+لاعب يعطي 200% من اللي عنده
+تلعبه بأي مركز راح يكون معاك
+سبب وضعي له بذا المركز هي الاصابه فقط
+غير كذا كان بيكون بدون ادنى شك من العشره الاوائل.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">مايلز لويس سكيلي 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 14</span>
+            </div>
+            <div class="player-opinion">الحديث لطالما كثر عن ذا الاعب و عن توظيف ارتيتا الخاطئ له
+واللي ادركه ارتيتا نهايه الموسم لما استبدله بزوبميندي و تحسن شكل الفريق جداً بسبب ذا الشيء
+لاعب جداً ممتاز
+لعب دقائق قليله بمركز الوسط و قدم فيها اداء جداً ممتاز
+لكن لما كان ظهير كان سيء جداً و تسبب في اهداف و تسبب ايضاًبخسرتنا امام ساوثهامبتون
+سبب وضعي له بذا المركز هو الاداء التاريخي اللي قدمه اخر ست مباريات
+ولا غير كذا يستحق مركز اقل.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">غابرييل مارتينيلي 🇧🇷</div>
+                <span class="rank-badge rank-mid">المركز 13</span>
+            </div>
+            <div class="player-opinion">ذا افضل بديل بالفريق بدون شك و من افضل الاعبين البدلاء بالعالم
+هو السبب الاول في كونا متصدرين الابطال
+هو السبب الاول في كونا بنهائي الرابطه
+وكذلك ربع نهائي الـ FA Cup
+ولا ننسى اغلى اهدافه ضد السيتي
+الاعب ذا قدم كثير كثير كثير جداً الموسم ذا
+بس كذلك اخذ كثير كثير كثير
+فعشان كذا احترت احطه من افضل 11 ام لا
+وكان القرار لا.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">إيبريشي إيزي 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 12</span>
+            </div>
+            <div class="player-opinion">ايزييي يا ايزي.
+قدم مستويات طيبه من بعد مباراة توتنهام و ساهم في حسم بعض الامور و تحديداً بالابطال، هدفه ضد ليفركوزن
+عموماً ايزي لاعب عنده الكثير 
+بس هو غبي ابله ما يبي يركض اشغلنا
+و فوقها ضيع ركلة جزاء، يعني وين اصرفها ذي؟
+عموماً هو قدم فتره تاريخيه مره خلال فترات من الموسم خلتني افضله على لاعبين كثير
+ايزي ايضاً عندي كلام مطول عنه، بس خله لوقته.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">مارتن زوبيميندي 🇪🇸</div>
+                <span class="rank-badge rank-best">المركز 11</span>
+            </div>
+            <div class="player-opinion">لاعب قدم نصف موسم اول ممتاز جداً لدرجة الكل استغرب كيف لاعب مثل ذا جديد وكانه يلعب له عشرين سنه مع النادي
+و قدم نصف موسم ثاني جيد تقريباً
+وسجل اهداف حاسمه كثير ولا قصر
+بس بالربع الاخير منه اختفى ذا الاعب
+عندي كلام كثير عنه بس بقوله بعدين.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كاي هافيرتز 🇩🇪</div>
+                <span class="rank-badge rank-best">المركز 10</span>
+            </div>
+            <div class="player-opinion">الاعب ذا قضى نص الموسم مصاب
+عاد، و عاد معاه شكل من اشكال ارسنال قبل موسمين
+ذا الاعب قد لا يكون ممتع للنظر
+قد لا تشوف منه فايده بالعين المجرده
+لكنه دايم يسجل و يصنع و يلجمك
+ذا الاعب من اول ما عاد من الاصابه تسبب في فوزنا في مباريات كثيره و ساعدنا فيها
+والله ما قصر ابداً
+سجل هدف بنهائي الابطال و حاول كثير
+ويستحق التواجد من ضمن الـ11 الافضل.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">ريكاردو كالافيوري 🇮🇹</div>
+                <span class="rank-badge rank-best">المركز 9</span>
+            </div>
+            <div class="player-opinion">صراحه لو بيدي حطيته بمركز واحد مع هنكابي لتقارب المستوى اللي بينهم مع اختلاف نقاط قوتهم
+عموماً كالافيوري قدم بدايه تاريخيه
+ومن وجهة نظري استحق لاعب الشهر لشهر اغسطس بس سلبت منه
+قدم مستويات عظيمه جداً بالمجمل.
+اي مباره لعبها كالافيوري الموسم ذا بدع فيها بلا شك
+عموماً كثرت الاصابات هي اللي خلتني افضل هنكابي عليه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">بييرو هينكابي 🇪🇨</div>
+                <span class="rank-badge rank-best">المركز 8</span>
+            </div>
+            <div class="player-opinion">هنكابي قدم مستويات عظيمه و لعب بروح وكانه له عشرين سنه بالنادي
+ضحى بموخرته عشاننا وذا امر يستحق التقدير الصدق
+الاعب ذا اول ما جاء ما كانت معلقه عليه امال و توقعات كبيره
+بس جاء و عرف كل الناس عنه وقد ايش هو لاعب اسطوري.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">لياندرو تروسارد 🇧🇪</div>
+                <span class="rank-badge rank-best">المركز 7</span>
+            </div>
+            <div class="player-opinion">اخر موسم له مع الفريق
+قدم اداء تاريخي في بداية النصف الاول، كان مساهم بعشر اهداف بكم مباره و كان حاسم و اسطوري والله
+والكل عارف الشيء ذا ما يحتاج
+بس اللي خلاني افضل جيوكيريس عليه انه تروسارد غاب كثير بالموسم سواء بسبب الاصابه او بسبب التراجع
+الاعب قعد فتره طويله مب مساهم بأي هدف وهو جناح
+وذا الشيء خلاني افضل جيوكيريس عليه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">فيكتور جيوكيريس 🇸🇪</div>
+                <span class="rank-badge rank-best">المركز 6</span>
+            </div>
+            <div class="player-opinion">كنت محتار بينه وبين تروسارد بس فضلته هو
+جيوكيريس قدم موسم اول طيب جداً
+استفدنا منه كثير و حسم لنا مباريات كثيره بالدوري
+قدم اداء جميل بالابطال
+لاعب خرافي و فنشر عالمي
+بس الاجنحه خذلته الموسم ذا والله
+صحيح ضيعنا بس مب مره
+والله شكراً له على ذا الموسم و شكراً على تضحياته عشان الفريق بالصيفيه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <!-- فاصل توب 5 المميزين جداً -->
+        <div class="elite-divider">
+            <span class="elite-text">فارق شاسع جداً — الخمسة الأفضل في الموسم 🔥</span>
+        </div>
+
+        <div class="player-card" style="border-color: rgba(219, 161, 28, 0.3);">
+            <div class="card-header">
+                <div class="player-title">ويليام صليبا 🇫🇷</div>
+                <span class="rank-badge rank-best">المركز 5</span>
+            </div>
+            <div class="player-opinion">ملاحظه بسيطه: فيه فارق شاسع بين الخمسه اللي فوق و اي لاعب بالفريق. لدرجة حسيت بنوع من الظلم اني اخلي ساليبا و جيوكيريس جنب بعض
+عموماً ساليبا تراجع اداؤه الموسم ذا شوي الصدق
+لكن تطور هجومياً بشكل كبير
+الاعب كلنا عارفينه و كلنا عارفين امكانياته
+ذا الموسم ما طلعها بشكل ممتاز
+واتمنى يتحسن اكثر الموسم القادم
+ومع التراجع اللي فيه، يظل واحد من افضل المدافعين بالعالم.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card" style="border-color: rgba(219, 161, 28, 0.4);">
+            <div class="card-header">
+                <div class="player-title">يوريان تيمبر 🇳🇱</div>
+                <span class="rank-badge rank-best">المركز 4</span>
+            </div>
+            <div class="player-opinion">اخخخخ يا تيمبر…
+قدم موسم تاريخي عظيم اسطوري
+بس الاصابه انهت موسمه و اثرت علينا بشكل كبير
+لاعب مثل تيمبر يعد من الاهم بمنظومة ارتيتا
+و اثبت الشيء ذا يوم غاب عنا.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card" style="border-color: #dba11c;">
+            <div class="card-header">
+                <div class="player-title">غابرييل ماجاليس 🇧🇷</div>
+                <span class="rank-badge rank-top3">المركز 3 🥉</span>
+            </div>
+            <div class="player-opinion">لو وش ما قلت عنه باهضم حقه والله
+افضل موسم له مع ارسنال
+سوى كل شيء
+سجل، صنع، بدع، وحقق كل شيء مطلوب منه
+بس اضاع ركلة الجزاء بعد ما بدع بالمباره و استحق رجل المباراه فيها
+هاذي هي كرة القدم، قاسيه جداً
+عموماً يا قابي، تفداك الف بطوله مب بطوله وحده والله.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card" style="border-color: #dba11c; box-shadow: 0 0 15px rgba(219,161,28,0.1);">
+            <div class="card-header">
+                <div class="player-title">دافيد رايا 🇪🇸</div>
+                <span class="rank-badge rank-top3">المركز 2 🥈</span>
+            </div>
+            <div class="player-opinion">حسب المعايير اللي حطيتها بالبدايه خلتني افضله على قابي.
+رايا قدم موسم عظيم عظيم عظيم
+محد كان يتوقعه او يأمله منه
+حتى شال الفريق شيل
+حتى في النهائي صد ركلة جزاء ولا قصر.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="player-card" style="border-color: #ef0107; background: rgba(239, 1, 7, 0.08); box-shadow: 0 0 25px rgba(239,1,7,0.15);">
+            <div class="card-header">
+                <div class="player-title" style="color: #ef0107; font-size: 22px;">ديكلان رايس 🏴󠁧󠁢󠁥󠁮󠁧󠁿 👑</div>
+                <span class="rank-badge rank-top3" style="background: #ef0107; color: white;">المركز 1 🥇</span>
+            </div>
+            <div class="player-opinion" style="font-size: 16px; font-weight: bold; color: #fff;">اكيد رايس ومن غيره 
+مقدم موسم بالون دوري
+واداء تاريخي و يسجل في التاريخ.
+ويستحق اكثر من ذلك ابو جود .
+واتمنى يقدم اداء بكاس العالم عشان يحقق الكوره الذهبية.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
+        </div>
+
+        <div class="footer-nav">
+            <a href="index.html" class="btn-back">⬅️ العودة للرئيسية</a>
+        </div>
     </div>
 
-    <footer>
-        جميع الحقوق محفوظة © منصة Rayfoot البرمجية
-    </footer>
-
-    <!-- كود الجافا سكربت للتحكم بالقائمة وتأثير فتح الـ "قريباً" بمرونة -->
+    <!-- برمجة أزرار التفاعل لجعلها حية وتفاعلية -->
     <script>
-        function toggleMenu() {
-            var menu = document.getElementById("sideMenu");
-            var overlay = document.getElementById("menuOverlay");
+        function toggleReact(button, type) {
+            const container = button.parentElement;
+            const agreeBtn = container.querySelector('button:nth-child(1)');
+            const disagreeBtn = container.querySelector('button:nth-child(2)');
             
-            if (menu.classList.contains("open")) {
-                menu.classList.remove("open");
-                overlay.classList.remove("show");
-            } else {
-                menu.classList.add("open");
-                overlay.classList.add("show");
+            const agreeCounter = agreeBtn.querySelector('.counter');
+            const disagreeCounter = disagreeBtn.querySelector('.counter');
+            
+            let currentAgree = parseInt(agreeCounter.innerText);
+            let currentDisagree = parseInt(disagreeCounter.innerText);
+
+            if (type === 'agree') {
+                if (agreeBtn.classList.contains('agree-active')) {
+                    agreeBtn.classList.remove('agree-active');
+                    agreeCounter.innerText = currentAgree - 1;
+                } else {
+                    agreeBtn.classList.add('agree-active');
+                    agreeCounter.innerText = currentAgree + 1;
+                    if (disagreeBtn.classList.contains('disagree-active')) {
+                        disagreeBtn.classList.remove('disagree-active');
+                        disagreeCounter.innerText = currentDisagree - 1;
+                    }
+                }
+            } else if (type === 'disagree') {
+                if (disagreeBtn.classList.contains('disagree-active')) {
+                    disagreeBtn.classList.remove('disagree-active');
+                    disagreeCounter.innerText = currentDisagree - 1;
+                } else {
+                    disagreeBtn.classList.add('disagree-active');
+                    disagreeCounter.innerText = currentDisagree + 1;
+                    if (agreeBtn.classList.contains('agree-active')) {
+                        agreeBtn.classList.remove('agree-active');
+                        agreeCounter.innerText = currentAgree - 1;
+                    }
+                }
             }
         }
-
-        // دالة الفتح والإغلاق السلس للقسم المنسدل تحت الكرت
-        function toggleSection(panelId) {
-            // إغلاق أي لوحة أخرى مفتوحة أولاً لإعطاء مظهر منظم ومريح
-            var allPanels = document.querySelectorAll('.soon-panel');
-            allPanels.forEach(function(panel) {
-                if (panel.id !== panelId) {
-                    panel.classList.remove('show');
-                }
-            });
-
-            // فتح أو إغلاق اللوحة المطلوبة
-            var targetPanel = document.getElementById(panelId);
-            targetPanel.classList.toggle('show');
-        }
     </script>
-
 </body>
 </html>
