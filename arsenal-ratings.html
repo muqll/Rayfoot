@@ -8,12 +8,14 @@
         body {
             margin: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; color: #f5f5f7; direction: rtl; min-height: 100vh; background-color: #0a0a0e; position: relative; line-height: 1.8;
         }
+        /* خلفية مخصصة للموقع */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("arsenal-stadium.jpg"); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: -2;
+            background-image: url("arsenal-bg.jpg"); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: -2;
         }
+        /* طبقة حماية داكنة فوق الخلفية لجعل الكلمات واضحة جداً للقراءة */
         body::after {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(10, 10, 14, 0.93) 0%, rgba(15, 6, 6, 0.96) 100%); z-index: -1;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(10, 10, 14, 0.94) 0%, rgba(15, 6, 6, 0.97) 100%); z-index: -1;
         }
         header {
             background: rgba(20, 20, 25, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 30px 20px; font-size: 24px; font-weight: bold; text-align: center; border-bottom: 3px solid #dba11c; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
@@ -30,34 +32,38 @@
 
         /* بطاقات اللاعبين */
         .player-card {
-            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 16px; padding: 25px; margin-bottom: 25px; transition: transform 0.3s, border-color 0.3s; position: relative; overflow: hidden;
+            background: rgba(20, 20, 25, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 16px; padding: 25px; margin-bottom: 25px; transition: transform 0.3s, border-color 0.3s; position: relative; overflow: hidden;
         }
         .player-card:hover { transform: translateY(-3px); }
         
         .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; margin-bottom: 15px; }
         .player-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
         
-        /* تلوين المراكز حسب السوء والأفضلية */
+        /* شارات المراكز */
         .rank-badge { padding: 4px 14px; border-radius: 30px; font-size: 13px; font-weight: bold; letter-spacing: 0.5px; }
-        
-        /* تصنيفات المراكز */
         .rank-worst { background: rgba(239, 1, 7, 0.2); color: #ff4d4d; border: 1px solid #ef0107; }
         .rank-mid { background: rgba(219, 161, 28, 0.15); color: #dba11c; border: 1px solid #dba11c; }
         .rank-best { background: rgba(46, 213, 115, 0.15); color: #2ed573; border: 1px solid #2ed573; }
         .rank-top3 { background: linear-gradient(45deg, #dba11c, #fff); color: #111; font-weight: 900; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
 
-        .player-opinion { color: #d1d1d6; font-size: 15px; text-align: justify; white-space: pre-line; }
+        .player-opinion { color: #d1d1d6; font-size: 15px; text-align: justify; white-space: pre-line; margin-bottom: 20px; }
         
+        /* قسم أزرار التفاعل الجديد */
+        .reaction-container {
+            display: flex; gap: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 15px; margin-top: 10px;
+        }
+        .react-btn {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); color: #e2e2e5; padding: 6px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; user-select: none;
+        }
+        .react-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+        .react-btn.agree-active { background: rgba(46, 213, 115, 0.2); color: #2ed573; border-color: #2ed573; }
+        .react-btn.disagree-active { background: rgba(239, 1, 7, 0.2); color: #ff4d4d; border-color: #ef0107; }
+        .counter { font-weight: bold; }
+
         /* فاصل شاسع للخمسة الأوائل */
-        .elite-divider {
-            text-align: center; margin: 50px 0 40px 0; position: relative;
-        }
-        .elite-divider::before {
-            content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #dba11c, transparent); z-index: 1;
-        }
-        .elite-text {
-            position: relative; z-index: 2; background: #0c0c12; padding: 8px 25px; border-radius: 30px; border: 1px solid #dba11c; color: #dba11c; font-weight: bold; font-size: 14px; box-shadow: 0 0 15px rgba(219,161,28,0.2);
-        }
+        .elite-divider { text-align: center; margin: 50px 0 40px 0; position: relative; }
+        .elite-divider::before { content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #dba11c, transparent); z-index: 1; }
+        .elite-text { position: relative; z-index: 2; background: #0c0c12; padding: 8px 25px; border-radius: 30px; border: 1px solid #dba11c; color: #dba11c; font-weight: bold; font-size: 14px; box-shadow: 0 0 15px rgba(219,161,28,0.2); }
 
         .footer-nav { text-align: center; margin-top: 50px; }
         .btn-back { color: white; text-decoration: none; background: rgba(239, 1, 7, 0.2); padding: 14px 30px; border-radius: 12px; border: 1px solid #ef0107; font-weight: bold; transition: 0.2s; display: inline-block; }
@@ -96,6 +102,10 @@
 انا ما حطيته بذا المركز الا لانه اعلى جوده بالفريق و اكثر لاعب حاط عليه امال بداية الموسم، و الاخ حقق اسوء مستوى ولا حتى كان يحاول
 كل لاعبين الفريق كلهم كلهم بلا استثناء تعبوا و حاولوا ذا الموسم، ما عدا ساكا
 اهخخخ بس، اتمنى يرجع الموسم الجاي.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -107,6 +117,10 @@
 ما قصر في اغلب موسمه الين ما جاء نهائي ويمبلي ضد السيتي و خسرنا بطوله كامله و دمر كل شيء سواه اللاعب.
 بكل صراحه اغلب مبارياته معنا ما قصر فيها، وكان يلعب بروح و شغف كبير جداً وكانه له عشرين سنه يلعب
 اشكره على اللي قدمه معنا .</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -119,8 +133,12 @@
 ثلاث ارباع الموسم بالمستشفى و ربع مستوى مخجل
 و اداء رعوني قدم مباريات جميله قليله جداً و ساعدنا فيها على تحقيق الدوري، بس تخاذل في نهائي الابطال و في مباريات حاسمه
 بكل صدق الاعب اذا ما كان مصاب ولعب، بعض المرات فقط، كان يقدم اداء تاريخي و يشكر عليه.
-بس وش الفايده دام ثلاث ارباع الموسم مصاب؟
+بس وش الفايده دام ثلاث ارباع الموسم مصاب?
 الاعب هذا من الموسم الماضي و انا اقول نفس الكلام عنه، ما ادري الى متى يا اوديغارد</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -131,6 +149,10 @@
             <div class="player-opinion">لاعب تاريخي و خرافي بس دقائق لعبه قليله
 ولا قصر فيها كلها، و اشكره جداً على الموسم الجميل ذا
 بس فيه لاعبين احق منه بمراكز اعلى بسبب دقائق اللعب.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -141,6 +163,10 @@
             <div class="player-opinion">لاعب ممتاز
 لعب عدد دقائق تناسب كونه لاعب جاي من رباط صليبي ولا قصر فيها
 انقذنا ضد الولفز و قدم اداء تاريخي امام انتر و ساهم بشكل كبير بتواجد ارسنال بالربع النهائي بالـ FA Cup و نهائي الكاراباو.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -153,6 +179,10 @@
 في كل مباره لعبها ذا الموسم قدم اداء خيالي و انقذنا ضد ايفرتون و ساهم ايضاً بالكؤوس
 ولا ننسى ايضاً ان عمره 16 فقط و كسر كثير ارقام قياسيه في كرة القدم تتعلق بالعمر
 مستقبل عظيم لذا الاعب.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -164,6 +194,10 @@
 لاعب دكه كان ممتاز، ينزل في مباريات و يكون احسن من ساكا و ينقذنا، ابرزها ضد سبورتنغ و غيرها من المباريات
 ساهم بـ 11 هدف، حصيله جيده الصراحه من لاعب دكه
 ذا غير انه كان يقدم اداء ممتاز، بس مع الاسف رعونه المهاجمين ما حولت الفرص ذي لاهداف.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -178,6 +212,10 @@
 لانه قدم اداء تاريخي ضد اتلتيكو و في مباريات اخرى بالكؤوس
 وكان لاعب ممتاز
 غالباً اخر موسم له، و اشكره جزيل الشكر على كل ما قدمه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -191,6 +229,10 @@
 بس لعله اخطا بسبب قلة الخبره و رعونه الجناح ساكا بالتغطيه و تسبب بركلة جزاء في النهائي
 غير كذا الاعب امامه مستقبل مبهر و كبير
 لا زال عمره 21 فقط.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -204,6 +246,10 @@
 تلعبه بأي مركز راح يكون معاك
 سبب وضعي له بذا المركز هي الاصابه فقط
 غير كذا كان بيكون بدون ادنى شك من العشره الاوائل.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -215,9 +261,13 @@
 واللي ادركه ارتيتا نهايه الموسم لما استبدله بزوبميندي و تحسن شكل الفريق جداً بسبب ذا الشيء
 لاعب جداً ممتاز
 لعب دقائق قليله بمركز الوسط و قدم فيها اداء جداً ممتاز
-لكن لما كان ظهير كان سيء جداً و تسبب في اهداف و تسبب ايضاً بخسرتنا امام ساوثهامبتون
+لكن لما كان ظهير كان سيء جداً و تسبب في اهداف و تسبب ايضاًبخسرتنا امام ساوثهامبتون
 سبب وضعي له بذا المركز هو الاداء التاريخي اللي قدمه اخر ست مباريات
 ولا غير كذا يستحق مركز اقل.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -234,6 +284,10 @@
 بس كذلك اخذ كثير كثير كثير
 فعشان كذا احترت احطه من افضل 11 ام لا
 وكان القرار لا.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -248,6 +302,10 @@
 و فوقها ضيع ركلة جزاء، يعني وين اصرفها ذي؟
 عموماً هو قدم فتره تاريخيه مره خلال فترات من الموسم خلتني افضله على لاعبين كثير
 ايزي ايضاً عندي كلام مطول عنه، بس خله لوقته.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -260,6 +318,10 @@
 وسجل اهداف حاسمه كثير ولا قصر
 بس بالربع الاخير منه اختفى ذا الاعب
 عندي كلام كثير عنه بس بقوله بعدين.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -276,6 +338,10 @@
 والله ما قصر ابداً
 سجل هدف بنهائي الابطال و حاول كثير
 ويستحق التواجد من ضمن الـ11 الافضل.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -289,6 +355,10 @@
 قدم مستويات عظيمه جداً بالمجمل.
 اي مباره لعبها كالافيوري الموسم ذا بدع فيها بلا شك
 عموماً كثرت الاصابات هي اللي خلتني افضل هنكابي عليه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -300,6 +370,10 @@
 ضحى بموخرته عشاننا وذا امر يستحق التقدير الصدق
 الاعب ذا اول ما جاء ما كانت معلقه عليه امال و توقعات كبيره
 بس جاء و عرف كل الناس عنه وقد ايش هو لاعب اسطوري.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -313,6 +387,10 @@
 بس اللي خلاني افضل جيوكيريس عليه انه تروسارد غاب كثير بالموسم سواء بسبب الاصابه او بسبب التراجع
 الاعب قعد فتره طويله مب مساهم بأي هدف وهو جناح
 وذا الشيء خلاني افضل جيوكيريس عليه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card">
@@ -328,6 +406,10 @@
 بس الاجنحه خذلته الموسم ذا والله
 صحيح ضيعنا بس مب مره
 والله شكراً له على ذا الموسم و شكراً على تضحياته عشان الفريق بالصيفيه.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <!-- فاصل توب 5 المميزين جداً -->
@@ -347,6 +429,10 @@
 ذا الموسم ما طلعها بشكل ممتاز
 واتمنى يتحسن اكثر الموسم القادم
 ومع التراجع اللي فيه، يظل واحد من افضل المدافعين بالعالم.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card" style="border-color: rgba(219, 161, 28, 0.4);">
@@ -359,6 +445,10 @@
 بس الاصابه انهت موسمه و اثرت علينا بشكل كبير
 لاعب مثل تيمبر يعد من الاهم بمنظومة ارتيتا
 و اثبت الشيء ذا يوم غاب عنا.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card" style="border-color: #dba11c;">
@@ -373,6 +463,10 @@
 بس اضاع ركلة الجزاء بعد ما بدع بالمباره و استحق رجل المباراه فيها
 هاذي هي كرة القدم، قاسيه جداً
 عموماً يا قابي، تفداك الف بطوله مب بطوله وحده والله.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="player-card" style="border-color: #dba11c; box-shadow: 0 0 15px rgba(219,161,28,0.1);">
@@ -385,9 +479,13 @@
 محد كان يتوقعه او يأمله منه
 حتى شال الفريق شيل
 حتى في النهائي صد ركلة جزاء ولا قصر.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
-        <div class="player-card" style="border-color: #ef0107; background: rgba(239, 1, 7, 0.05); box-shadow: 0 0 25px rgba(239,1,7,0.15);">
+        <div class="player-card" style="border-color: #ef0107; background: rgba(239, 1, 7, 0.08); box-shadow: 0 0 25px rgba(239,1,7,0.15);">
             <div class="card-header">
                 <div class="player-title" style="color: #ef0107; font-size: 22px;">ديكلان رايس 🏴󠁧󠁢󠁥󠁮󠁧󠁿 👑</div>
                 <span class="rank-badge rank-top3" style="background: #ef0107; color: white;">المركز 1 🥇</span>
@@ -397,6 +495,10 @@
 واداء تاريخي و يسجل في التاريخ.
 ويستحق اكثر من ذلك ابو جود .
 واتمنى يقدم اداء بكاس العالم عشان يحقق الكوره الذهبية.</div>
+            <div class="reaction-container">
+                <button class="react-btn" onclick="toggleReact(this, 'agree')">👍 اتفق <span class="counter">0</span></button>
+                <button class="react-btn" onclick="toggleReact(this, 'disagree')">👎 لا اتفق <span class="counter">0</span></button>
+            </div>
         </div>
 
         <div class="footer-nav">
@@ -404,5 +506,49 @@
         </div>
     </div>
 
+    <!-- برمجة أزرار التفاعل لجعلها حية وتفاعلية -->
+    <script>
+        function toggleReact(button, type) {
+            const container = button.parentElement;
+            const agreeBtn = container.querySelector('button:nth-child(1)');
+            const disagreeBtn = container.querySelector('button:nth-child(2)');
+            
+            const agreeCounter = agreeBtn.querySelector('.counter');
+            const disagreeCounter = disagreeBtn.querySelector('.counter');
+            
+            let currentAgree = parseInt(agreeCounter.innerText);
+            let currentDisagree = parseInt(disagreeCounter.innerText);
+
+            if (type === 'agree') {
+                if (agreeBtn.classList.contains('agree-active')) {
+                    // إلغاء الضغط إذا ضغط عليه مرة أخرى
+                    agreeBtn.classList.remove('agree-active');
+                    agreeCounter.innerText = currentAgree - 1;
+                } else {
+                    // تفعيل الاتفاق وإلغاء عدم الاتفاق لو كان مفعل
+                    agreeBtn.classList.add('agree-active');
+                    agreeCounter.innerText = currentAgree + 1;
+                    if (disagreeBtn.classList.contains('disagree-active')) {
+                        disagreeBtn.classList.remove('disagree-active');
+                        disagreeCounter.innerText = currentDisagree - 1;
+                    }
+                }
+            } else if (type === 'disagree') {
+                if (disagreeBtn.classList.contains('disagree-active')) {
+                    // إلغاء الضغط إذا ضغط عليه مرة أخرى
+                    disagreeBtn.classList.remove('disagree-active');
+                    disagreeCounter.innerText = currentDisagree - 1;
+                } else {
+                    // تفعيل عدم الاتفاق وإلغاء الاتفاق لو كان مفعل
+                    disagreeBtn.classList.add('disagree-active');
+                    disagreeCounter.innerText = currentDisagree + 1;
+                    if (agreeBtn.classList.contains('agree-active')) {
+                        agreeBtn.classList.remove('agree-active');
+                        agreeCounter.innerText = currentAgree - 1;
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html>
