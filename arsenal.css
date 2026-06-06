@@ -1,0 +1,85 @@
+body{
+    margin:0;
+    font-family:Tahoma, Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+/* الهيدر */
+
+header{
+    background:#dc2626;
+    padding:18px;
+    font-size:20px;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* الحاوية */
+
+.container{
+    max-width:800px;
+    margin:auto;
+    padding:10px;
+}
+
+/* كل لاعب */
+
+.player{
+    position:relative;
+    background:#000;
+    margin:18px 0;      /* 👈 مسافة بين الصور */
+    border-radius:14px;
+    overflow:hidden;
+}
+
+/* الصورة */
+
+.player img{
+    width:100%;
+    height:70vh;        /* 👈 حجم موبايل لكن ليس ملتصق */
+    object-fit:contain; /* 👈 تظهر كاملة بدون قص */
+    background:#000;
+    display:block;
+}
+
+/* الأزرار */
+
+.reactions{
+    position:absolute;
+    bottom:12px;
+    left:12px;
+    display:flex;
+    gap:8px;
+}
+
+/* الأزرار صغيرة */
+
+.like,
+.dislike{
+    border:none;
+    background:rgba(0,0,0,0.5);
+    color:white;
+    font-size:14px;
+    padding:7px 9px;
+    border-radius:50%;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.active{
+    transform:scale(1.2);
+    background:rgba(255,255,255,0.2);
+}
+
+/* الرجوع */
+
+.back{
+    text-align:center;
+    padding:20px;
+}
+
+.back a{
+    color:white;
+    text-decoration:none;
+}

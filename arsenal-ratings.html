@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>تقييم لاعبين أرسنال</title>
+
+<link rel="stylesheet" href="arsenal.css">
+
+</head>
+
+<body>
+
+<header>
+🏆 تقييم لاعبين أرسنال موسم 25/26
+</header>
+
+<div class="container" id="players"></div>
+
+<div class="back">
+    <a href="arsenal.html">⬅ العودة</a>
+</div>
+
+<script>
+
+const container = document.getElementById("players");
+
+for(let i = 1; i <= 17; i++){
+
+    container.innerHTML += `
+
+    <div class="player">
+
+        <img src="profile/player${i}.jpg" alt="Player ${i}">
+
+        <div class="reactions">
+
+            <button class="like" onclick="toggle(this)">👍</button>
+
+            <button class="dislike" onclick="toggle(this)">👎</button>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+function toggle(btn){
+    btn.classList.toggle("active");
+}
+
+</script>
+
+</body>
+</html>
