@@ -3,274 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقييم لاعبي أرسنال 🔴⚪</title>
+    <title>التقييم الشامل لموسم الغانرز 🔴⚪</title>
     <style>
         body {
-            margin: 0; font-family: Tahoma, Arial, sans-serif; color: white; direction: rtl; min-height: 100vh; background-color: #0b0e14; position: relative;
+            margin: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; color: #f5f5f7; direction: rtl; min-height: 100vh; background-color: #0a0a0e; position: relative; line-height: 1.8;
         }
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("stadium-bg.jpg"); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: -2;
+            background-image: url("arsenal-stadium.jpg"); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: -2;
         }
         body::after {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(6, 10, 18, 0.9); z-index: -1;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(10, 10, 14, 0.93) 0%, rgba(15, 6, 6, 0.96) 100%); z-index: -1;
         }
         header {
-            background: rgba(239, 1, 7, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px; font-size: 22px; font-weight: bold; text-align: center; border-bottom: 2px solid #ef0107; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: rgba(20, 20, 25, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 30px 20px; font-size: 24px; font-weight: bold; text-align: center; border-bottom: 3px solid #dba11c; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
-        .container { max-width: 700px; margin: auto; padding: 25px 15px; }
+        .container { max-width: 800px; margin: auto; padding: 30px 15px; }
         
-        .description { text-align: center; color: #ccc; font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
+        /* مقدمة الكاتب */
+        .intro-box {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 25px; margin-bottom: 35px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .intro-box h2 { color: #ef0107; margin-top: 0; font-size: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .intro-box ul { padding-right: 20px; margin: 10px 0; color: #dba11c; font-weight: bold; }
+        .intro-box ul li { color: #e2e2e5; font-weight: normal; margin-bottom: 5px; }
 
+        /* بطاقات اللاعبين */
         .player-card {
-            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; transition: 0.2s;
+            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 16px; padding: 25px; margin-bottom: 25px; transition: transform 0.3s, border-color 0.3s; position: relative; overflow: hidden;
         }
-        .player-card:hover { border-color: rgba(239, 1, 7, 0.4); background: rgba(255, 255, 255, 0.06); }
+        .player-card:hover { transform: translateY(-3px); }
         
-        .player-info { display: flex; align-items: center; gap: 15px; width: 45%; }
-        .player-img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #ef0107; object-fit: cover; background: #222; }
-        .player-name { font-weight: bold; font-size: 16px; margin-bottom: 4px; }
-        .player-position { font-size: 12px; color: #8a9ca8; }
-
-        .rating-section { width: 50%; display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
-        .rating-slider { -webkit-appearance: none; width: 100%; height: 6px; background: #333; border-radius: 5px; outline: none; }
-        .rating-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #ef0107; cursor: pointer; border: 2px solid white; }
-        .rating-slider::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #ef0107; cursor: pointer; border: 2px solid white; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; margin-bottom: 15px; }
+        .player-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
         
-        .rating-value { font-size: 20px; font-weight: bold; min-width: 35px; text-align: center; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
-
-        .actions { margin-top: 30px; display: flex; gap: 15px; justify-content: center; }
-        .btn { border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s; }
-        .btn-submit { background: #ef0107; color: white; box-shadow: 0 4px 15px rgba(239, 1, 7, 0.3); }
-        .btn-submit:hover { background: #ff1a22; }
+        /* تلوين المراكز حسب السوء والأفضلية */
+        .rank-badge { padding: 4px 14px; border-radius: 30px; font-size: 13px; font-weight: bold; letter-spacing: 0.5px; }
         
-        .nav-back { text-align: center; margin-top: 40px; }
-        .nav-back a { color: #aaa; text-decoration: none; font-size: 13px; transition: 0.2s; }
-        .nav-back a:hover { color: #ef0107; }
+        /* تصنيفات المراكز */
+        .rank-worst { background: rgba(239, 1, 7, 0.2); color: #ff4d4d; border: 1px solid #ef0107; }
+        .rank-mid { background: rgba(219, 161, 28, 0.15); color: #dba11c; border: 1px solid #dba11c; }
+        .rank-best { background: rgba(46, 213, 115, 0.15); color: #2ed573; border: 1px solid #2ed573; }
+        .rank-top3 { background: linear-gradient(45deg, #dba11c, #fff); color: #111; font-weight: 900; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
 
-        /* نافذة النتيجة المودال */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: #161b26; border: 2px solid #ef0107; padding: 25px; border-radius: 15px; max-width: 450px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .modal-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: #ef0107; }
-        .summary-list { text-align: right; max-height: 250px; overflow-y: auto; margin-bottom: 20px; padding-left: 5px; }
-        .summary-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        .player-opinion { color: #d1d1d6; font-size: 15px; text-align: justify; white-space: pre-line; }
+        
+        /* فاصل شاسع للخمسة الأوائل */
+        .elite-divider {
+            text-align: center; margin: 50px 0 40px 0; position: relative;
+        }
+        .elite-divider::before {
+            content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #dba11c, transparent); z-index: 1;
+        }
+        .elite-text {
+            position: relative; z-index: 2; background: #0c0c12; padding: 8px 25px; border-radius: 30px; border: 1px solid #dba11c; color: #dba11c; font-weight: bold; font-size: 14px; box-shadow: 0 0 15px rgba(219,161,28,0.2);
+        }
+
+        .footer-nav { text-align: center; margin-top: 50px; }
+        .btn-back { color: white; text-decoration: none; background: rgba(239, 1, 7, 0.2); padding: 14px 30px; border-radius: 12px; border: 1px solid #ef0107; font-weight: bold; transition: 0.2s; display: inline-block; }
+        .btn-back:hover { background: #ef0107; box-shadow: 0 5px 20px rgba(239,1,7,0.4); }
     </style>
 </head>
 <body>
 
-    <header>🔴 تقييم لاعبي أرسنال</header>
+    <header>📊 التقييم الشامل والملخص لموسم أرسنال</header>
 
     <div class="container">
-        <p class="description">شاركنا رأيك وقيم أداء كتيبة الغانرز في المباراة الأخيرة. اسحب المؤشر لتحديد التقييم من 1 إلى 10 ثم اضغط حفظ.</p>
         
-        <div id="players-list">
-            <!-- حارس المرمى -->
-            <div class="player-card" data-id="raya">
-                <div class="player-info">
-                    <img src="players/raya.jpg" class="player-img" alt="دافيد رايا">
-                    <div>
-                        <div class="player-name">دافيد رايا</div>
-                        <div class="player-position">حارس مرمى</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <!-- الدفاع -->
-            <div class="player-card" data-id="saliba">
-                <div class="player-info">
-                    <img src="players/saliba.jpg" class="player-img" alt="ويليام صليبا">
-                    <div>
-                        <div class="player-name">ويليام صليبا</div>
-                        <div class="player-position">قلب دفاع</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <div class="player-card" data-id="gabriel">
-                <div class="player-info">
-                    <img src="players/gabriel.jpg" class="player-img" alt="غابرييل ماجاليس">
-                    <div>
-                        <div class="player-name">غابرييل ماجاليس</div>
-                        <div class="player-position">قلب دفاع</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <div class="player-card" data-id="white">
-                <div class="player-info">
-                    <img src="players/white.jpg" class="player-img" alt="بن وايت">
-                    <div>
-                        <div class="player-name">بن وايت</div>
-                        <div class="player-position">ظهير أيمن</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <!-- الوسط -->
-            <div class="player-card" data-id="rice">
-                <div class="player-info">
-                    <img src="players/rice.jpg" class="player-img" alt="ديكلان رايس">
-                    <div>
-                        <div class="player-name">ديكلان رايس</div>
-                        <div class="player-position">وسط مدافع</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <div class="player-card" data-id="odegaard">
-                <div class="player-info">
-                    <img src="players/odegaard.jpg" class="player-img" alt="مارتين أوديغارد">
-                    <div>
-                        <div class="player-name">مارتين أوديغارد</div>
-                        <div class="player-position">وسط صانع ألعاب</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <!-- الهجوم -->
-            <div class="player-card" data-id="saka">
-                <div class="player-info">
-                    <img src="players/saka.jpg" class="player-img" alt="بوكايو ساكا">
-                    <div>
-                        <div class="player-name">بوكايو ساكا</div>
-                        <div class="player-position">جناح أيمن</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <div class="player-card" data-id="martinelli">
-                <div class="player-info">
-                    <img src="players/martinelli.jpg" class="player-img" alt="غابرييل مارتينيلي">
-                    <div>
-                        <div class="player-name">غابرييل مارتينيلي</div>
-                        <div class="player-position">جناح أيسر</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
-
-            <div class="player-card" data-id="havertz">
-                <div class="player-info">
-                    <img src="players/havertz.jpg" class="player-img" alt="كاي هافيرتز">
-                    <div>
-                        <div class="player-name">كاي هافيرتز</div>
-                        <div class="player-position">مهاجم</div>
-                    </div>
-                </div>
-                <div class="rating-section">
-                    <input type="range" class="rating-slider" min="1" max="10" step="0.5" value="6">
-                    <span class="rating-value">6</span>
-                </div>
-            </div>
+        <!-- مقدمة المعايير -->
+        <div class="intro-box">
+            <h2>ملاحظة قبل البدء في الترتيب:</h2>
+            <p>أخيراً انتهى موسم ارسنال الطويل جدا و فهذه المناسبه قررت اسوي تقيم شامل كامل ملخص عن كل لاعب في فريق ارسنال هذا الموسم (باستثناء المعارين و الاعبين اللي دقائق لعبهم ما تجاوزت ال 500 دقيقه).</p>
+            <p>التقيم راح يكون حسب ثلاثه معايير:</p>
+            <ul>
+                <li>الامال و المطالب اللي علقها الجمهور على كل لاعب.</li>
+                <li>مستواه طول الموسم.</li>
+                <li>عدد دقائق اللعب.</li>
+            </ul>
+            <p>المعايير ذي اتمنى الكل يركز عليها لانها ممكن تسبب جدل، كوني حطيت لاعب بمركز متدني شوي وهو يستحق اعلى، لكن وفق المعايير اللي انا حطيتها ارى من وجهة نظري ان كل لاعب استحق مركزه. راح أبدأ تقييمي هذا من الأسوأ إلى الأفضل.</p>
+            <p>وحاب أوضح نقطة مهمة: هذا الموسم ما كان فيه لاعب سيء في الفريق، بالعكس، أغلب اللاعبين قدموا مستويات ممتازة وما قصروا، باستثناء كم لاعب… وبيجي دورهم الآن. وبرضوا أحب أوضح أن هذا التقييم حسب وجهة نظري فقط، وكل شخص له رأيه الخاص.</p>
         </div>
 
-        <div class="actions">
-            <button class="btn btn-submit" onclick="generateSummary()">حفظ وإظهار تقرير التقييمات</button>
+        <!-- قائمة اللاعبين من 24 إلى 1 -->
+        
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">بوكايو ساكا 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-worst">المركز 24</span>
+            </div>
+            <div class="player-opinion">هذا الاعب بناء على دقائق لعبه و مستوياته فيها و الامال اللي علقناها عليه فهو خذلنا خذلنا خذلنا و خذلنا في اهم مباريات موسمنا وقد يكون تاريخنا اللي هي نهائي الابطال و غيرها من مباريات كثيره كنا معلقين عليه امال كبيره بس خذلنا
+ذا غير انه نص الموسم مصاب و النص الثاني معفن حرفياً، ما اذكر لك مباره بدع فيها الا فولهام ذهاب و اياب و ليدز، غير كذا ما اتذكر
+انا ما حطيته بذا المركز الا لانه اعلى جوده بالفريق و اكثر لاعب حاط عليه امال بداية الموسم، و الاخ حقق اسوء مستوى ولا حتى كان يحاول
+كل لاعبين الفريق كلهم كلهم بلا استثناء تعبوا و حاولوا ذا الموسم، ما عدا ساكا
+اهخخخ بس، اتمنى يرجع الموسم الجاي.</div>
         </div>
 
-        <div class="nav-back"><a href="index.html"> العودة للرئيسية</a></div>
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كيبا 🇪🇸</div>
+                <span class="rank-badge rank-worst">المركز 23</span>
+            </div>
+            <div class="player-opinion">هذا حارس دكه ممتاز كونه دكه فقط.
+ما قصر في اغلب موسمه الين ما جاء نهائي ويمبلي ضد السيتي و خسرنا بطوله كامله و دمر كل شيء سواه اللاعب.
+بكل صراحه اغلب مبارياته معنا ما قصر فيها، وكان يلعب بروح و شغف كبير جداً وكانه له عشرين سنه يلعب
+اشكره على اللي قدمه معنا .</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">مارتين أوديغارد 🇳🇴</div>
+                <span class="rank-badge rank-worst">المركز 22</span>
+            </div>
+            <div class="player-opinion">القائد, الكابتن، الاعب اللي لطالما كنت احبه و اعشقه و اطبل له، بس الان غير
+هذا الاعب نفس وضع خوينا ساكا
+ثلاث ارباع الموسم بالمستشفى و ربع مستوى مخجل
+و اداء رعوني قدم مباريات جميله قليله جداً و ساعدنا فيها على تحقيق الدوري، بس تخاذل في نهائي الابطال و في مباريات حاسمه
+بكل صدق الاعب اذا ما كان مصاب ولعب، بعض المرات فقط، كان يقدم اداء تاريخي و يشكر عليه.
+بس وش الفايده دام ثلاث ارباع الموسم مصاب؟
+الاعب هذا من الموسم الماضي و انا اقول نفس الكلام عنه، ما ادري الى متى يا اوديغارد</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كريستيان نورغارد 🇩🇰</div>
+                <span class="rank-badge rank-mid">المركز 21</span>
+            </div>
+            <div class="player-opinion">لاعب تاريخي و خرافي بس دقائق لعبه قليله
+ولا قصر فيها كلها، و اشكره جداً على الموسم الجميل ذا
+بس فيه لاعبين احق منه بمراكز اعلى بسبب دقائق اللعب.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">غابرييل جيسوس 🇧🇷</div>
+                <span class="rank-badge rank-mid">المركز 20</span>
+            </div>
+            <div class="player-opinion">لاعب ممتاز
+لعب عدد دقائق تناسب كونه لاعب جاي من رباط صليبي ولا قصر فيها
+انقذنا ضد الولفز و قدم اداء تاريخي امام انتر و ساهم بشكل كبير بتواجد ارسنال بالربع النهائي بالـ FA Cup و نهائي الكاراباو.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">ماكس دومان 🇩🇪</div>
+                <span class="rank-badge rank-mid">المركز 19</span>
+            </div>
+            <div class="player-opinion">لاعب جوهره
+ممتاز ممتاز ممتاز
+في كل مباره لعبها ذا الموسم قدم اداء خيالي و انقذنا ضد ايفرتون و ساهم ايضاً بالكؤوس
+ولا ننسى ايضاً ان عمره 16 فقط و كسر كثير ارقام قياسيه في كرة القدم تتعلق بالعمر
+مستقبل عظيم لذا الاعب.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">نوني مادويكي 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 18</span>
+            </div>
+            <div class="player-opinion">والله الصدق اني اختلف مع كل من ينتقده
+لاعب دكه كان ممتاز، ينزل في مباريات و يكون احسن من ساكا و ينقذنا، ابرزها ضد سبورتنغ و غيرها من المباريات
+ساهم بـ 11 هدف، حصيله جيده الصراحه من لاعب دكه
+ذا غير انه كان يقدم اداء ممتاز، بس مع الاسف رعونه المهاجمين ما حولت الفرص ذي لاهداف.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">بن وايت 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 17</span>
+            </div>
+            <div class="player-opinion">لاعب شبه منتهي بسبب الاصابات
+قدم موسم جيد و كان بديل جيد
+نذكر له لحظات ممتازه في ذا الموسم
+صحيح خذلنا شوي ضد السيتي سواء بالكاس او بالدوري، بس عوافي فداه
+لانه قدم اداء تاريخي ضد اتلتيكو و في مباريات اخرى بالكؤوس
+وكان لاعب ممتاز
+غالباً اخر موسم له، و اشكره جزيل الشكر على كل ما قدمه.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كريستيان موسكيرا 🇨🇴</div>
+                <span class="rank-badge rank-mid">المركز 16</span>
+            </div>
+            <div class="player-opinion">يا اخوان والله انه لاعب ممتاز جداً ولا قصر في اي مباره لعبها ذا الموسم
+كلها، اي مباره شارك فيها ما قصر بتاتاً
+وخصوصاً في النهائي قدم مستوى ممتاز جداً والله
+بس لعله اخطا بسبب قلة الخبره و رعونه الجناح ساكا بالتغطيه و تسبب بركلة جزاء في النهائي
+غير كذا الاعب امامه مستقبل مبهر و كبير
+لا زال عمره 21 فقط.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">ميكيل ميرينو 🇪🇸</div>
+                <span class="rank-badge rank-mid">المركز 15</span>
+            </div>
+            <div class="player-opinion">لا كلام عن هذا الاعب
+قد يكون من اهم الاعبين في منظومه ارسنال سواء بالدكه او بالشخصيه او بعض المرات في الملعب
+لاعب يعطي 200% من اللي عنده
+تلعبه بأي مركز راح يكون معاك
+سبب وضعي له بذا المركز هي الاصابه فقط
+غير كذا كان بيكون بدون ادنى شك من العشره الاوائل.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">مايلز لويس سكيلي 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 14</span>
+            </div>
+            <div class="player-opinion">الحديث لطالما كثر عن ذا الاعب و عن توظيف ارتيتا الخاطئ له
+واللي ادركه ارتيتا نهايه الموسم لما استبدله بزوبميندي و تحسن شكل الفريق جداً بسبب ذا الشيء
+لاعب جداً ممتاز
+لعب دقائق قليله بمركز الوسط و قدم فيها اداء جداً ممتاز
+لكن لما كان ظهير كان سيء جداً و تسبب في اهداف و تسبب ايضاً بخسرتنا امام ساوثهامبتون
+سبب وضعي له بذا المركز هو الاداء التاريخي اللي قدمه اخر ست مباريات
+ولا غير كذا يستحق مركز اقل.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">غابرييل مارتينيلي 🇧🇷</div>
+                <span class="rank-badge rank-mid">المركز 13</span>
+            </div>
+            <div class="player-opinion">ذا افضل بديل بالفريق بدون شك و من افضل الاعبين البدلاء بالعالم
+هو السبب الاول في كونا متصدرين الابطال
+هو السبب الاول في كونا بنهائي الرابطه
+وكذلك ربع نهائي الـ FA Cup
+ولا ننسى اغلى اهدافه ضد السيتي
+الاعب ذا قدم كثير كثير كثير جداً الموسم ذا
+بس كذلك اخذ كثير كثير كثير
+فعشان كذا احترت احطه من افضل 11 ام لا
+وكان القرار لا.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">إيبريشي إيزي 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+                <span class="rank-badge rank-mid">المركز 12</span>
+            </div>
+            <div class="player-opinion">ايزييي يا ايزي.
+قدم مستويات طيبه من بعد مباراة توتنهام و ساهم في حسم بعض الامور و تحديداً بالابطال، هدفه ضد ليفركوزن
+عموماً ايزي لاعب عنده الكثير 
+بس هو غبي ابله ما يبي يركض اشغلنا
+و فوقها ضيع ركلة جزاء، يعني وين اصرفها ذي؟
+عموماً هو قدم فتره تاريخيه مره خلال فترات من الموسم خلتني افضله على لاعبين كثير
+ايزي ايضاً عندي كلام مطول عنه، بس خله لوقته.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">مارتن زوبيميندي 🇪🇸</div>
+                <span class="rank-badge rank-best">المركز 11</span>
+            </div>
+            <div class="player-opinion">لاعب قدم نصف موسم اول ممتاز جداً لدرجة الكل استغرب كيف لاعب مثل ذا جديد وكانه يلعب له عشرين سنه مع النادي
+و قدم نصف موسم ثاني جيد تقريباً
+وسجل اهداف حاسمه كثير ولا قصر
+بس بالربع الاخير منه اختفى ذا الاعب
+عندي كلام كثير عنه بس بقوله بعدين.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">كاي هافيرتز 🇩🇪</div>
+                <span class="rank-badge rank-best">المركز 10</span>
+            </div>
+            <div class="player-opinion">الاعب ذا قضى نص الموسم مصاب
+عاد، و عاد معاه شكل من اشكال ارسنال قبل موسمين
+ذا الاعب قد لا يكون ممتع للنظر
+قد لا تشوف منه فايده بالعين المجرده
+لكنه دايم يسجل و يصنع و يلجمك
+ذا الاعب من اول ما عاد من الاصابه تسبب في فوزنا في مباريات كثيره و ساعدنا فيها
+والله ما قصر ابداً
+سجل هدف بنهائي الابطال و حاول كثير
+ويستحق التواجد من ضمن الـ11 الافضل.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">ريكاردو كالافيوري 🇮🇹</div>
+                <span class="rank-badge rank-best">المركز 9</span>
+            </div>
+            <div class="player-opinion">صراحه لو بيدي حطيته بمركز واحد مع هنكابي لتقارب المستوى اللي بينهم مع اختلاف نقاط قوتهم
+عموماً كالافيوري قدم بدايه تاريخيه
+ومن وجهة نظري استحق لاعب الشهر لشهر اغسطس بس سلبت منه
+قدم مستويات عظيمه جداً بالمجمل.
+اي مباره لعبها كالافيوري الموسم ذا بدع فيها بلا شك
+عموماً كثرت الاصابات هي اللي خلتني افضل هنكابي عليه.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">بييرو هينكابي 🇪🇨</div>
+                <span class="rank-badge rank-best">المركز 8</span>
+            </div>
+            <div class="player-opinion">هنكابي قدم مستويات عظيمه و لعب بروح وكانه له عشرين سنه بالنادي
+ضحى بموخرته عشاننا وذا امر يستحق التقدير الصدق
+الاعب ذا اول ما جاء ما كانت معلقه عليه امال و توقعات كبيره
+بس جاء و عرف كل الناس عنه وقد ايش هو لاعب اسطوري.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">لياندرو تروسارد 🇧🇪</div>
+                <span class="rank-badge rank-best">المركز 7</span>
+            </div>
+            <div class="player-opinion">اخر موسم له مع الفريق
+قدم اداء تاريخي في بداية النصف الاول، كان مساهم بعشر اهداف بكم مباره و كان حاسم و اسطوري والله
+والكل عارف الشيء ذا ما يحتاج
+بس اللي خلاني افضل جيوكيريس عليه انه تروسارد غاب كثير بالموسم سواء بسبب الاصابه او بسبب التراجع
+الاعب قعد فتره طويله مب مساهم بأي هدف وهو جناح
+وذا الشيء خلاني افضل جيوكيريس عليه.</div>
+        </div>
+
+        <div class="player-card">
+            <div class="card-header">
+                <div class="player-title">فيكتور جيوكيريس 🇸🇪</div>
+                <span class="rank-badge rank-best">المركز 6</span>
+            </div>
+            <div class="player-opinion">كنت محتار بينه وبين تروسارد بس فضلته هو
+جيوكيريس قدم موسم اول طيب جداً
+استفدنا منه كثير و حسم لنا مباريات كثيره بالدوري
+قدم اداء جميل بالابطال
+لاعب خرافي و فنشر عالمي
+بس الاجنحه خذلته الموسم ذا والله
+صحيح ضيعنا بس مب مره
+والله شكراً له على ذا الموسم و شكراً على تضحياته عشان الفريق بالصيفيه.</div>
+        </div>
+
+        <!-- فاصل توب 5 المميزين جداً -->
+        <div class="elite-divider">
+            <span class="elite-text">فارق شاسع جداً — الخمسة الأفضل في الموسم 🔥</span>
+        </div>
+
+        <div class="player-card" style="border-color: rgba(219, 161, 28, 0.3);">
+            <div class="card-header">
+                <div class="player-title">ويليام صليبا 🇫🇷</div>
+                <span class="rank-badge rank-best">المركز 5</span>
+            </div>
+            <div class="player-opinion">ملاحظه بسيطه: فيه فارق شاسع بين الخمسه اللي فوق و اي لاعب بالفريق. لدرجة حسيت بنوع من الظلم اني اخلي ساليبا و جيوكيريس جنب بعض
+عموماً ساليبا تراجع اداؤه الموسم ذا شوي الصدق
+لكن تطور هجومياً بشكل كبير
+الاعب كلنا عارفينه و كلنا عارفين امكانياته
+ذا الموسم ما طلعها بشكل ممتاز
+واتمنى يتحسن اكثر الموسم القادم
+ومع التراجع اللي فيه، يظل واحد من افضل المدافعين بالعالم.</div>
+        </div>
+
+        <div class="player-card" style="border-color: rgba(219, 161, 28, 0.4);">
+            <div class="card-header">
+                <div class="player-title">يوريان تيمبر 🇳🇱</div>
+                <span class="rank-badge rank-best">المركز 4</span>
+            </div>
+            <div class="player-opinion">اخخخخ يا تيمبر…
+قدم موسم تاريخي عظيم اسطوري
+بس الاصابه انهت موسمه و اثرت علينا بشكل كبير
+لاعب مثل تيمبر يعد من الاهم بمنظومة ارتيتا
+و اثبت الشيء ذا يوم غاب عنا.</div>
+        </div>
+
+        <div class="player-card" style="border-color: #dba11c;">
+            <div class="card-header">
+                <div class="player-title">غابرييل ماجاليس 🇧🇷</div>
+                <span class="rank-badge rank-top3">المركز 3 🥉</span>
+            </div>
+            <div class="player-opinion">لو وش ما قلت عنه باهضم حقه والله
+افضل موسم له مع ارسنال
+سوى كل شيء
+سجل، صنع، بدع، وحقق كل شيء مطلوب منه
+بس اضاع ركلة الجزاء بعد ما بدع بالمباره و استحق رجل المباراه فيها
+هاذي هي كرة القدم، قاسيه جداً
+عموماً يا قابي، تفداك الف بطوله مب بطوله وحده والله.</div>
+        </div>
+
+        <div class="player-card" style="border-color: #dba11c; box-shadow: 0 0 15px rgba(219,161,28,0.1);">
+            <div class="card-header">
+                <div class="player-title">دافيد رايا 🇪🇸</div>
+                <span class="rank-badge rank-top3">المركز 2 🥈</span>
+            </div>
+            <div class="player-opinion">حسب المعايير اللي حطيتها بالبدايه خلتني افضله على قابي.
+رايا قدم موسم عظيم عظيم عظيم
+محد كان يتوقعه او يأمله منه
+حتى شال الفريق شيل
+حتى في النهائي صد ركلة جزاء ولا قصر.</div>
+        </div>
+
+        <div class="player-card" style="border-color: #ef0107; background: rgba(239, 1, 7, 0.05); box-shadow: 0 0 25px rgba(239,1,7,0.15);">
+            <div class="card-header">
+                <div class="player-title" style="color: #ef0107; font-size: 22px;">ديكلان رايس 🏴󠁧󠁢󠁥󠁮󠁧󠁿 👑</div>
+                <span class="rank-badge rank-top3" style="background: #ef0107; color: white;">المركز 1 🥇</span>
+            </div>
+            <div class="player-opinion" style="font-size: 16px; font-weight: bold; color: #fff;">اكيد رايس ومن غيره 
+مقدم موسم بالون دوري
+واداء تاريخي و يسجل في التاريخ.
+ويستحق اكثر من ذلك ابو جود .
+واتمنى يقدم اداء بكاس العالم عشان يحقق الكوره الذهبية.</div>
+        </div>
+
+        <div class="footer-nav">
+            <a href="index.html" class="btn-back">⬅️ العودة للرئيسية</a>
+        </div>
     </div>
 
-    <!-- نافذة التقرير (Modal) -->
-    <div id="summaryModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-title">ملخص تقييماتك للمباراة</div>
-            <div id="summaryList" class="summary-list"></div>
-            <button class="btn btn-submit" style="width: 100%;" onclick="closeModal()">إغلاق وتعديل</button>
-        </div>
-    </div>
-
-    <script>
-        const sliders = document.querySelectorAll('.rating-slider');
-
-        // دالة لتحديث الألوان بشكل ديناميكي بناءً على رقم التقييم
-        function updateColor(slider, valueSpan) {
-            const val = parseFloat(slider.value);
-            valueSpan.textContent = val;
-            
-            if (val < 5) {
-                valueSpan.style.color = '#ff4d4d'; // أحمر للضعيف
-            } else if (val >= 5 && val < 7.5) {
-                valueSpan.style.color = '#ffcc00'; // أصفر للمتوسط
-            } else {
-                valueSpan.style.color = '#00ffcc'; // أخضر للممتاز
-            }
-        }
-
-        // إعداد المستمعين لكل شريط تمرير وتحميل القيم المحفوظة مسبقاً
-        sliders.forEach(slider => {
-            const container = slider.closest('.player-card');
-            const playerId = container.getAttribute('data-id');
-            const valueSpan = container.querySelector('.rating-value');
-            
-            // استرجاع التقييم من LocalStorage إذا وجد
-            const savedRating = localStorage.getItem('arsenal_rating_' + playerId);
-            if(savedRating) {
-                slider.value = savedRating;
-            }
-
-            updateColor(slider, valueSpan);
-
-            slider.addEventListener('input', () => {
-                updateColor(slider, valueSpan);
-                localStorage.setItem('arsenal_rating_' + playerId, slider.value);
-            });
-        });
-
-        // دالة لتجميع التقييمات وعرضها في نافذة منبثقة
-        function generateSummary() {
-            const summaryList = document.getElementById('summaryList');
-            summaryList.innerHTML = '';
-            const cards = document.querySelectorAll('.player-card');
-            
-            cards.forEach(card => {
-                const name = card.querySelector('.player-name').textContent;
-                const score = card.querySelector('.rating-slider').value;
-                const scoreColor = card.querySelector('.rating-value').style.color;
-
-                const item = document.createElement('div');
-                item.className = 'summary-item';
-                item.innerHTML = `<span>${name}</span><span style="font-weight:bold; color:${scoreColor}">${score} / 10</span>`;
-                summaryList.appendChild(item);
-            });
-
-            document.getElementById('summaryModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('summaryModal').style.display = 'none';
-        }
-    </script>
 </body>
 </html>
