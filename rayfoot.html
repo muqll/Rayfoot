@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayfoot — الرئيسية</title>
+    <style>
+        /* =========================
+           BODY & BACKGROUNDS
+        ========================= */
+        body {
+            margin: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            color: white;
+            direction: rtl;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background-color: #0a0a0a;
+        }
+
+        /* خلفية ثابتة للشاشات الكبيرة */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("desktop-bg.jpg"); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -3; 
+        }
+
+        /* طبقة تعتيم خفيف لتسهيل القراءة */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.55); 
+            z-index: -2;
+        }
+
+        /* حل مشكلة الشاشة الرمادية على الآيفون والموبايل */
+        @media (max-width: 768px) {
+            body::before {
+                background-image: url("mobile-bg.jpg");
+                background-size: cover;
+                background-position: center;
+                background-attachment: scroll !important;
+                position: fixed;
+                top: 0; left: 0; width: 100vw; height: 100vh;
+            }
+        }
+
+        /* زخرفة متحركة خلفية */
+        .bg-animation {
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.02) 0px,
+                rgba(255, 255, 255, 0.02) 2px,
+                transparent 2px,
+                transparent 40px
+            );
+            animation: rotateBg 35s linear infinite;
+            z-index: -1;
+            pointer-events: none; 
+        }
+
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* =========================
+           HEADER & NAV MENU
+        ========================= */
+        header {
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        /* الـ 3 شرطات لفتح القائمة */
+        .menu-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 26px;
+            cursor: pointer;
+            z-index: 100;
+            user-select: none;
+            transition: color 0.3s;
+        }
+        .menu-btn:hover {
+            color: #d4af37;
+        }
+
+        /* القائمة الجانبية المنسدلة */
+        .side-menu {
+            position: fixed;
+            top: 0; right: -280px; width: 240px; height: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            z-index: 99;
+            padding: 80px 20px 20px 20px;
+            transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+        .side-menu.open {
+            right: 0;
+        }
+        .side-menu a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            padding: 14px 10px;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .side-menu a:hover {
+            color: white;
+            background: rgba(255,255,255,0.05);
+            padding-right: 18px;
+        }
+
+        /* طبقة التعتيم عند فتح القائمة */
+        .menu-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 98;
+            display: none;
+        }
+        .menu-overlay.show {
+            display: block;
+        }
+
+        /* =========================
+           MAIN CONTAINER & CARDS
+        ========================= */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 25px 15px;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .welcome-card h1 { margin: 0 0 10px 0; font-size: 26px; color: #fff; }
+        .welcome-card p { margin: 0; font-size: 15px; color: #ccc; line-height: 1.6; }
+
+        .main-section-card {
+            margin-bottom: 25px;
+        }
+        .section-link {
+            text-decoration: none; 
+            color: white;
+            display: block;
+        }
+        .inner-banner {
+            position: relative; 
+            height: 180px; 
+            border-radius: 16px; 
+            background-size: cover; 
+            background-position: center; 
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .inner-banner:hover {
+            transform: scale(1.01);
+        }
+        
+        /* تأثير مميز للأقسام القادمة عند النقر */
+        .disabled-banner {
+            cursor: pointer;
+        }
+
+        .banner-overlay {
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+        }
+        .banner-content {
+            position: absolute; 
+            bottom: 20px; 
+            right: 20px; 
+            text-align: right;
+        }
+        .badge {
+            color: black; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; margin-bottom: 8px;
+        }
+        .banner-content h2 { margin: 0; font-size: 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
+        .banner-content p { margin: 5px 0 0 0; font-size: 14px; color: #ddd; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+
+        /* =========================
+           SLIDE DOWN PANEL (قريباً)
+        ========================= */
+        .soon-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 0 0 14px 14px;
+            margin-top: -10px;
+            border: 1px solid transparent;
+            border-top: none;
+        }
+        .soon-panel.show {
+            max-height: 80px; /* الارتفاع عند الفتح */
+            margin-top: -5px;
+            margin-bottom: 15px;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .soon-text {
+            padding: 15px 20px;
+            font-size: 15px;
+            color: #d4af37;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer {
+            text-align: center; padding: 30px 10px; font-size: 13px; color: #777; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- طبقة الزخرفة الخلفية المتحركة -->
+    <div class="bg-animation"></div>
+
+    <!-- طبقة التعتيم للقائمة المنسدلة -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <header>
+        <!-- الـ 3 شرطات -->
+        <div class="menu-btn" onclick="toggleMenu()">☰</div>
+        ⚽ منصة RAYFOOT الرياضية
+    </header>
+
+    <!-- القائمة الجانبية المنسدلة -->
+    <div class="side-menu" id="sideMenu">
+        <a href="index.html">🏠 الصفحة الرئيسية</a>
+        <a href="arsenal.html">🔴 أرسنال مع أبو سو</a>
+        <a href="worldcup.html">🏆 كأس العالم 2026</a>
+        <a onclick="toggleMenu(); toggleSection('ucl-soon')">⭐ دوري الأبطال</a>
+        <a onclick="toggleMenu(); toggleSection('news-soon')">📰 آخر الأخبار</a>
+        <a onclick="toggleMenu(); toggleSection('opinions-soon')">💬 آراء كروية</a>
+        <a onclick="toggleMenu(); toggleSection('results-soon')">📊 قسم النتائج</a>
+    </div>
+
+    <div class="container">
+
+        <!-- بطاقة الترحيب العلوية -->
+        <div class="welcome-card">
+            <h1>أهلاً بكم في Rayfoot</h1>
+            <p>منصتك الحصرية لمتابعة أقوى التحليلات، التقييمات، وتغطية البطولات العالمية الكبرى برؤية أبو سو.</p>
+        </div>
+
+        <!-- 1️⃣ قسم أرسنال مع أبو سو -->
+        <div class="main-section-card">
+            <a href="arsenal.html" class="section-link">
+                <div class="inner-banner" style="background-image: url('arsenal1.jpg'); border: 1px solid rgba(220, 38, 38, 0.3);">
+                    <div class="banner-overlay"></div>
+                    <div class="banner-content">
+                        <span class="badge" style="background: #dc2626; color: white;">نادي المدفعجية 🔴</span>
+                        <h2>أرسنال مع أبو سو</h2>
+                        <p>ملخص شامل، تحليل تكتيكي، وتقييم كامل ومفصل لأداء لاعبي أرسنال هذا الموسم</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 2️⃣ قسم كأس العالم 2026 -->
+        <div class="main-section-card">
+            <a href="worldcup.html" class="section-link">
+                <div class="inner-banner" style="background-image: url('arsenal5.jpg'); border: 1px solid rgba(212, 175, 55, 0.3);">
+                    <div class="banner-overlay"></div>
+                    <div class="banner-content">
+                        <span class="badge" style="background: #d4af37; color: black;">تغطية حصرية 🏆</span>
+                        <h2>كأس العالم 2026 مع أبو سو</h2>
+                        <p>تابع المجموعات الـ 12، جداول ومواعيد المباريات، الهدافين، وآخر كواليس المونديال أولاً بأول</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 3️⃣ قسم دوري الأبطال -->
+        <div class="main-section-card" onclick="toggleSection('ucl-soon')">
+            <div class="inner-banner disabled-banner" style="background-image: url('arsenal6.jpg'); border: 1px solid rgba(29, 78, 216, 0.2);">
+                <div class="banner-overlay"></div>
+                <div class="banner-content">
+                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل ⭐</span>
+                    <h2>دوري الأبطال</h2>
+                    <p>ليالي الأبطال الكبرى وتحليل قمم الأدوار الإقصائية سنبدأ تغطيتها هنا</p>
+                </div>
+            </div>
+        </div>
+        <!-- لوحة "قريباً" المنسدلة تحت قسم دوري الأبطال -->
+        <div class="soon-panel" id="ucl-soon">
+            <div class="soon-text">⏳ انتظرونا.. التغطية الخاصة ببطولة دوري الأبطال ستنطلق قريباً جداً في المنصة!</div>
+        </div>
+
+        <!-- 4️⃣ قسم آخر الأخبار -->
+        <div class="main-section-card" onclick="toggleSection('news-soon')">
+            <div class="inner-banner disabled-banner" style="background-image: url('arsenal2.jpg'); border: 1px solid rgba(255, 255, 255, 0.15);">
+                <div class="banner-overlay"></div>
+                <div class="banner-content">
+                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل 📰</span>
+                    <h2>آخر الأخبار</h2>
+                    <p>متابعة وتغطية حصرية مدار الساعة لآخر كواليس وسوق الانتقالات في الملاعب العالمية</p>
+                </div>
+            </div>
+        </div>
+        <!-- لوحة "قريباً" المنسدلة تحت قسم آخر الأخبار -->
+        <div class="soon-panel" id="news-soon">
+            <div class="soon-text">⏳ قريباً جداً.. ترقبوا شريط الأخبار الحصري وكواليس الميركاتو أولاً بأول!</div>
+        </div>
+
+        <!-- 5️⃣ قسم آراء كروية -->
+        <div class="main-section-card" onclick="toggleSection('opinions-soon')">
+            <div class="inner-banner disabled-banner" style="background-image: url('arsenal3.jpg'); border: 1px solid rgba(139, 92, 246, 0.2);">
+                <div class="banner-overlay"></div>
+                <div class="banner-content">
+                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل 💬</span>
+                    <h2>آراء كروية</h2>
+                    <p>نقاشات تكتيكية صريحة، قضايا ساخنة، ومساحة لمشاركة آرائكم حول كل ما يخص كرة القدم</p>
+                </div>
+            </div>
+        </div>
+        <!-- لوحة "قريباً" المنسدلة تحت قسم آراء كروية -->
+        <div class="soon-panel" id="opinions-soon">
+            <div class="soon-text">⏳ قريباً.. سنفتح مساحة للنقاشات والآراء التكتيكية ومشاركة تعليقاتكم في المنصة!</div>
+        </div>
+
+        <!-- 6️⃣ قسم النتائج -->
+        <div class="main-section-card" onclick="toggleSection('results-soon')">
+            <div class="inner-banner disabled-banner" style="background-image: url('arsenal4.jpg'); border: 1px solid rgba(16, 185, 129, 0.2);">
+                <div class="banner-overlay"></div>
+                <div class="banner-content">
+                    <span class="badge" style="background: rgba(255,255,255,0.2); color: white;">اضغط للتفاصيل 📊</span>
+                    <h2>قسم النتائج</h2>
+                    <p>مركز متكامل لمتابعة نتائج المباريات المباشرة وجداول ترتيب الدوريات الكبرى</p>
+                </div>
+            </div>
+        </div>
+        <!-- لوحة "قريباً" المنسدلة تحت قسم النتائج -->
+        <div class="soon-panel" id="results-soon">
+            <div class="soon-text">⏳ نظام النتائج وجداول الترتيب المباشرة قيد التطوير البرمجي الآن وسيعمل قريباً!</div>
+        </div>
+
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة © منصة Rayfoot البرمجية
+    </footer>
+
+    <!-- كود الجافا سكربت للتحكم بالقائمة وتأثير فتح الـ "قريباً" بمرونة -->
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var overlay = document.getElementById("menuOverlay");
+            
+            if (menu.classList.contains("open")) {
+                menu.classList.remove("open");
+                overlay.classList.remove("show");
+            } else {
+                menu.classList.add("open");
+                overlay.classList.add("show");
+            }
+        }
+
+        // دالة الفتح والإغلاق السلس للقسم المنسدل تحت الكرت
+        function toggleSection(panelId) {
+            // إغلاق أي لوحة أخرى مفتوحة أولاً لإعطاء مظهر منظم ومريح
+            var allPanels = document.querySelectorAll('.soon-panel');
+            allPanels.forEach(function(panel) {
+                if (panel.id !== panelId) {
+                    panel.classList.remove('show');
+                }
+            });
+
+            // فتح أو إغلاق اللوحة المطلوبة
+            var targetPanel = document.getElementById(panelId);
+            targetPanel.classList.toggle('show');
+        }
+    </script>
+
+</body>
+</html>
